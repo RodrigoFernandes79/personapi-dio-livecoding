@@ -1,0 +1,5 @@
+one\digitalinnovation\personapi\model\Phone.class
+one\digitalinnovation\personapi\PersonapiApplication.class
+one\digitalinnovation\personapi\model\Phone$PhoneBuilder.class
+one\digitalinnovation\personapi\enumerate\PhoneType.class
+one\digitalinnovation\personapi\model\Person.class
