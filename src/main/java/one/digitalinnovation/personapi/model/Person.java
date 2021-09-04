@@ -13,11 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import lombok.AllArgsConstructor;
-
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity(name ="person")
 public class Person {
 	@Id
@@ -29,10 +32,11 @@ public class Person {
 	private String lastName;
 	@Column(length=250, nullable=false, unique = true)
 	private String cpf;
-	@Column(length=250, nullable=true)
+	
 	private LocalDate BirthDate;
 	@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 	@Column(length=250, nullable=false)
 	private List <Phone> phones;
+	
+	}
 
-}
