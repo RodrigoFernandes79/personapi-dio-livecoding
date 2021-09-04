@@ -21,7 +21,6 @@ public class PersonController {
 		
 	@Autowired
 	public PersonController(PersonService personService) {
-		super();
 		this.personService = personService;
 	}
 		

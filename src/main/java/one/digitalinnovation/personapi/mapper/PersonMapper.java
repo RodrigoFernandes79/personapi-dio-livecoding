@@ -10,7 +10,7 @@ import one.digitalinnovation.personapi.request.PersonDto;
 @Mapper
 public interface PersonMapper {
 	
-	PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
+	 PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
 	
 	@Mapping(target = "birthDate", source = "birthDate", dateFormat = "dd-mm-yyyy")
 	Person toModel(PersonDto personDto);
