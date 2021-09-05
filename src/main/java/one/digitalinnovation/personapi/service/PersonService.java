@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
 import net.bytebuddy.dynamic.DynamicType.Builder.FieldDefinition.Optional;
 import one.digitalinnovation.personapi.controller.MessageResponseDTO;
 import one.digitalinnovation.personapi.exception.PersonNotFoundException;
@@ -13,7 +14,7 @@ import one.digitalinnovation.personapi.mapper.PersonMapper;
 import one.digitalinnovation.personapi.model.Person;
 import one.digitalinnovation.personapi.repository.PersonRepository;
 import one.digitalinnovation.personapi.request.PersonDto;
-
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 @Service
 public class PersonService {
 	
@@ -21,11 +22,7 @@ public class PersonService {
 	
 	private final PersonMapper personMapper = PersonMapper.INSTANCE;
 	
-	@Autowired
-	public PersonService(PersonRepository repository) {
-		
-		this.repository = repository;
-	} 
+	
 	
 	public MessageResponseDTO createPerson(PersonDto personDto){
 		
@@ -50,5 +47,26 @@ public class PersonService {
 		Person person = repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
 		return personMapper.toDTO(person);
 	}
+	
+	public MessageResponseDTO updateById(Long id, PersonDto personDto) throws PersonNotFoundException {
+		
+		Person person = repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
+		
+		Person personToSave = personMapper.toModel(personDto);
+		 
+		 Person updatedPerson = repository.save(personToSave);
+	
+		return MessageResponseDTO.builder()
+				.message("Updated Person With ID: " + updatedPerson.getId())
+				.build();
+	}
+
+	public void delete(Long id) throws PersonNotFoundException {
+		repository.findById(id).orElseThrow(() -> new PersonNotFoundException(id));
+		repository.deleteById(id);
+		
+	}
+
+	
 	
 }
